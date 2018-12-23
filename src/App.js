@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Input from "./component/Input";
 import smartp from './img/smartphone.png';
+import loader from './img/loader.svg';
 
 
 class App extends Component {
@@ -162,7 +163,8 @@ class App extends Component {
                   <option>Spanish</option>
               </select>
               <Input lastName="width"  placeholder="Description..." name='description' onChange={this.handleUserInput} value={this.state.description} error={this.state.error}/>
-              <span className={this.state.zapros}>Запрос...</span>
+              <span className={this.state.zapros} ><img src={loader}/></span>
+
               <button type="submit" className={this.state.submitBtn}  >
                   contact our team
               </button>

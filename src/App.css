@@ -86,6 +86,8 @@ label{
 }
 .zaprosBlock{
     display: block;
+    text-align: center;
+    animation: loader infinite 3s linear;
 }
 .form{
     margin-left: 28px;
@@ -129,4 +131,14 @@ text-transform: uppercase;
   color: #ffffff;
   border: 1px solid #ffffff;
   background-color: #0078a0;
+}
+
+
+
+
+
+
+@keyframes loader {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
