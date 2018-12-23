@@ -1,0 +1,28 @@
+.width,.width1{
+    padding-left: 22px;
+    box-sizing: border-box;
+    background: none;
+    width: 487px;
+    height: 65px;
+    border-radius: 3px;
+    border: 1px solid #ffffff;
+    font-family: 'Raleway', sans-serif;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+}
+.width1{
+    width: 234px;
+}
+.inputBlock{
+    margin-bottom: 21px;
+}
+.error{
+    display: none;
+}
+.errorBlock{
+    color: #f2d422;
+    font-size: 12px;
+    font-weight: 500;
+    display: block;
+}

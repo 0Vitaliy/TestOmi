@@ -1,0 +1,132 @@
+
+.App {
+  background-color: #0078a0;
+    display: flex;
+    justify-content: center;
+}
+
+select{
+    padding-left: 22px;
+    box-sizing: border-box;
+    background: none;
+    width: 487px;
+    height: 65px;
+    border-radius: 3px;
+    border: 1px solid #ffffff;
+    font-family: 'Raleway', sans-serif;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 21px;
+    -webkit-appearance: none;
+    background-image: url('./img/ygol.svg');
+    background-position: 445px;
+    background-repeat: no-repeat;
+    line-height: 1em;
+    /* for FF */
+    -moz-appearance: none;
+
+    text-overflow: '';
+    /* for IE */
+    -ms-appearance: none;
+    appearance: none!important;
+}
+select::-ms-expand {
+    display: none;
+}
+.Name{
+  width: 487px;
+  display: flex;
+  justify-content: space-between;
+}
+.contacts{
+    text-align: center;
+    margin-right: 28px;
+}
+.imgSmart{
+    margin-top: 80px;
+}
+.contacts >h2{
+    margin: 0;
+    color: #ffffff;
+    font-family: Raleway;
+    font-size: 40px;
+    font-weight: 700;
+}
+label{
+    box-sizing: border-box;
+    margin-top: 22px;
+    color: #003547;
+    font-family: Raleway;
+    font-size: 16px;
+    display: flex;
+    width: 431px;
+    height: 66px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    border: 4px dashed #006283;
+
+
+
+}
+
+.inputFile{
+
+    width: 0.1px;
+    height: 0.1px;
+   position: absolute;
+    opacity: 0;
+}
+.btnNone{
+    display: none;
+}
+.zaprosNone{
+    display: none;
+}
+.zaprosBlock{
+    display: block;
+}
+.form{
+    margin-left: 28px;
+  width: 487px;
+}
+select>option{
+    background:#0078a0;
+    width: 487px;
+    height: 65px;
+}
+select:focus{
+    border: 2px solid #ffffff;
+    outline:none;
+}
+input:focus{
+    border: 2px solid #ffffff;
+  outline:none;
+}
+input::placeholder{
+
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 400;
+
+}
+.submitBtn{
+
+    display: block;
+    margin: 19px auto 0;
+    border: none;
+    color: #0078a0;
+    width: 279px;
+    height: 66px;
+    border-radius: 33px;
+    background-color: #ffffff;
+font-size: 14px;
+font-weight: 700;
+text-transform: uppercase;
+}
+.submitBtn:hover{
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  background-color: #0078a0;
+}
