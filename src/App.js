@@ -18,10 +18,11 @@ class App extends Component {
        error:'error',
        errorPhone:'error',
        errorEmail:'error',
+       errorfirstName:'error',
+       errorlastName:'error',
+       errorDescription: 'error',
        submitBtn:'submitBtn',
        zapros:'zaprosNone',
-       formValid:false
-
    }
 
 
@@ -29,6 +30,28 @@ class App extends Component {
         const name = e.target.name;
         const value = e.target.value;
         switch (name) {
+            case 'firstName':
+                var firstNameValid = value.match(/^[a-zA-Z][a-zA-Z0-9-_]{3,20}$/);
+                if (firstNameValid) {
+                    this.setState({errorfirstName: 'error'});
+                    e.target.style.border = " 1px solid white";
+
+                } else {
+                    this.setState({errorfirstName: 'errorBlock'});
+                    e.target.style.border = " 1px solid #f2d422";
+                }
+                break;
+            case 'lastName':
+                var lastNameValid = value.match(/^[a-zA-Z][a-zA-Z0-9-_]{3,20}$/);
+                if (lastNameValid) {
+                    this.setState({errorlastName: 'error'});
+                    e.target.style.border = " 1px solid white";
+
+                } else {
+                    this.setState({errorlastName: 'errorBlock'});
+                    e.target.style.border = " 1px solid #f2d422";
+                }
+                break;
             case 'email':
                 var emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
                 if (emailValid) {
@@ -39,8 +62,9 @@ class App extends Component {
                     this.setState({errorEmail: 'errorBlock'});
                     e.target.style.border = " 1px solid #f2d422";
                 }
+                break;
           case 'phone':
-        if(name==='phone'){
+
             var phoneValid = value.match( /(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){12,14}(\s*)?/);
             if( phoneValid){
                 this.setState({errorPhone:'error'});
@@ -50,34 +74,20 @@ class App extends Component {
                 this.setState({errorPhone:'errorBlock'});
                 e.target.style.border=" 1px solid #f2d422";
             }
-        }
-        }
-        // if(name==='email'){
-        //     var emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-        //     if( emailValid){
-        //         this.setState({errorEmail:'error'});
-        //         e.target.style.border=" 1px solid white";
-        //
-        //     }else {
-        //         this.setState({errorEmail:'errorBlock'});
-        //         e.target.style.border=" 1px solid #f2d422";
-        //     }
-        // }
-        // if(name==='phone'){
-        //     var phoneValid = value.match( /(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){12,14}(\s*)?/);
-        //     if( phoneValid){
-        //         this.setState({errorPhone:'error'});
-        //         e.target.style.border=" 1px solid white";
-        //
-        //     }else {
-        //         this.setState({errorPhone:'errorBlock'});
-        //         e.target.style.border=" 1px solid #f2d422";
-        //     }
-        // }
-          if(emailValid && phoneValid){
-              this.setState({formValid:true});
-          }
+            break;
+            case 'description':
+                var descriptionValid = value.match(/^[a-zA-Z][a-zA-Z0-9-_]{5,40}$/);
+                if (descriptionValid) {
+                    this.setState({errorDescription: 'error'});
+                    e.target.style.border = " 1px solid white";
 
+                } else {
+                    this.setState({errorDescription: 'errorBlock'});
+                    e.target.style.border = " 1px solid #f2d422";
+                }
+                break;
+
+        }
 
         this.setState({[name]: value});
 
@@ -95,7 +105,7 @@ class App extends Component {
     "company": this.state.company,
     "country": this.state.country,
     "email": this.state.email,
-    "files_id": [1],
+    // "files_id": [1],
     "first_name": this.state.firstName,
     "interest":this.state.interested,
     "last_name": this.state.lastName,
@@ -111,39 +121,61 @@ class App extends Component {
                     company:'',
                     country:'',
                     interested:'',
+                    formValid:false
                 }))
             };
 
     handleSubmit=(e)=>{
-       e.preventDefault();
-       console.log(e);
+        e.preventDefault();
+        // if(typeof(this.state.firstName)==="string" && this.state.errorfirstName==='error'
+        //     &&typeof(this.state.lastName)==="string" && this.state.errorlastName==='error'
+        //     &&typeof(this.state.email)==="string" && this.state.errorEmail==='error'
+        //     &&typeof(this.state.phone)==="string" && this.state.errorPhone==='error'
+        //     &&typeof(this.state.description)==="string" && this.state.errorDescription==='error'){
+        //
+        //     this.setState({formValid: true});
+        //
+        // }
 
-
-       // if(!this.state.firstName ){
-       //     this.setState({
-       //         error: "errorBlock"
-       //     })
-       // }
-        if(this.state.formValid) {
+       if(typeof(this.state.firstName)==="string" && this.state.errorfirstName==='error'
+           &&typeof(this.state.lastName)==="string" && this.state.errorlastName==='error'
+           &&typeof(this.state.email)==="string" && this.state.errorEmail==='error'
+           &&typeof(this.state.phone)==="string" && this.state.errorPhone==='error'
+           &&typeof(this.state.description)==="string" && this.state.errorDescription==='error') {
             this.setState({
                 submitBtn: "btnNone",
                 zapros: "zaprosBlock"
             });
             setTimeout(this.PostFeth, 2000)
 
-        }
-
-
-       console.log(this.state.firstName);
-        console.log(this.state.lastName);
-        console.log(this.state.email);
-        console.log(this.state.phone);
-        console.log(this.state.description);
-        console.log(this.state.company);
-        console.log(this.state.country);
-        console.log(this.state.interested);
-
-    }
+        }else {
+           if (this.state.errorfirstName==='error' && !this.state.firstName) {
+               this.setState({
+                   errorfirstName: 'errorBlock',
+               });
+           }
+           if (this.state.errorlastName==='error' && !this.state.lastName) {
+               this.setState({
+                   errorlastName: 'errorBlock',
+               });
+           }
+           if (this.state.errorEmail==='error' && !this.state.email) {
+               this.setState({
+                   errorEmail: 'errorBlock',
+               });
+           }
+           if (this.state.errorPhone==='error' && !this.state.phone) {
+               this.setState({
+                   errorPhone: 'errorBlock',
+               });
+           }
+           if (this.state.errorDescription==='error' && !this.state.description) {
+               this.setState({
+                   errorDescription: 'errorBlock',
+               });
+           }
+       }
+    };
   render() {
 
     return (
@@ -161,8 +193,8 @@ class App extends Component {
           </div>
           <form className="form" onSubmit={this.handleSubmit} >
               <div className="Name">
-                  <Input lastName="width1" placeholder="First name" name='firstName' onChange={this.handleUserInput} value={this.state.firstName} error={this.state.error}/>
-                  <Input lastName="width1" placeholder="Last name" name='lastName' onChange={this.handleUserInput} value={this.state.lastName} error={this.state.error}/>
+                  <Input lastName="width1" placeholder="First name" name='firstName' onChange={this.handleUserInput} value={this.state.firstName} error={this.state.errorfirstName}/>
+                  <Input lastName="width1" placeholder="Last name" name='lastName' onChange={this.handleUserInput} value={this.state.lastName} error={this.state.errorlastName}/>
               </div>
               <Input lastName="width"  placeholder="E-mail" name='email' onChange={this.handleUserInput} value={this.state.email} error={this.state.errorEmail}/>
               <Input lastName="width"  placeholder="Phone" name='phone' onChange={this.handleUserInput} value={this.state.phone} error={this.state.errorPhone}/>
@@ -182,7 +214,7 @@ class App extends Component {
                   <option>Front-end</option>
                   <option>Back-end</option>
               </select>
-              <Input lastName="width"  placeholder="Description..." name='description' onChange={this.handleUserInput} value={this.state.description} error={this.state.error}/>
+              <Input lastName="width"  placeholder="Description..." name='description' onChange={this.handleUserInput} value={this.state.description} error={this.state.errorDescription}/>
               <span className={this.state.zapros} ><img src={loader}/></span>
 
               <button type="submit" className={this.state.submitBtn}  >
