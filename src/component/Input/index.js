@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import './style.css';
 
 class Input extends Component {
-
     render() {
-        const {lastName,firstName,placeholder,value,onChange,error,name}=this.props;
-
+        const {lastName,firstName,placeholder,value,error,onChange,name}=this.props;
 
         return (
             <div className="inputBlock" >

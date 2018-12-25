@@ -16,55 +16,71 @@ class App extends Component {
        country:null,
        interested:null,
        error:'error',
+       errorPhone:'error',
+       errorEmail:'error',
        submitBtn:'submitBtn',
-       zapros:'zaprosNone'
+       zapros:'zaprosNone',
+       formValid:false
 
    }
 
-    // setfirstName=(e)=>{
-    //
-    //         this.setState({firstName: e.target.value});
-    //
-    // }
-    // setlastName=(e)=>{
-    //     this.setState({
-    //         lastName: e.target.value
-    //     })
-    // }
-    // setEmail=(e)=>{
-    //     this.setState({
-    //         email: e.target.value
-    //     })
-    // }
-    // setPhone=(e)=>{
-    //     this.setState({
-    //         phone: e.target.value
-    //     })
-    // }
-    // setDescription=(e)=>{
-    //     this.setState({
-    //         description: e.target.value
-    //     })
-    // }
-    // setCompany=(e)=>{
-    //     this.setState({
-    //         company: e.target.value
-    //     })
-    // }
-    // setCountry=(e)=>{
-    //     this.setState({
-    //         country: e.target.value
-    //     })
-    // }
-    // setInterested=(e)=>{
-    //     this.setState({
-    //         interested: e.target.value
-    //     })
-    // }
+
     handleUserInput = (e) => {
         const name = e.target.name;
         const value = e.target.value;
+        switch (name) {
+            case 'email':
+                var emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+                if (emailValid) {
+                    this.setState({errorEmail: 'error'});
+                    e.target.style.border = " 1px solid white";
+
+                } else {
+                    this.setState({errorEmail: 'errorBlock'});
+                    e.target.style.border = " 1px solid #f2d422";
+                }
+          case 'phone':
+        if(name==='phone'){
+            var phoneValid = value.match( /(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){12,14}(\s*)?/);
+            if( phoneValid){
+                this.setState({errorPhone:'error'});
+                e.target.style.border=" 1px solid white";
+
+            }else {
+                this.setState({errorPhone:'errorBlock'});
+                e.target.style.border=" 1px solid #f2d422";
+            }
+        }
+        }
+        // if(name==='email'){
+        //     var emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+        //     if( emailValid){
+        //         this.setState({errorEmail:'error'});
+        //         e.target.style.border=" 1px solid white";
+        //
+        //     }else {
+        //         this.setState({errorEmail:'errorBlock'});
+        //         e.target.style.border=" 1px solid #f2d422";
+        //     }
+        // }
+        // if(name==='phone'){
+        //     var phoneValid = value.match( /(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){12,14}(\s*)?/);
+        //     if( phoneValid){
+        //         this.setState({errorPhone:'error'});
+        //         e.target.style.border=" 1px solid white";
+        //
+        //     }else {
+        //         this.setState({errorPhone:'errorBlock'});
+        //         e.target.style.border=" 1px solid #f2d422";
+        //     }
+        // }
+          if(emailValid && phoneValid){
+              this.setState({formValid:true});
+          }
+
+
         this.setState({[name]: value});
+
     }
 
    PostFeth=()=>{
@@ -86,33 +102,36 @@ class App extends Component {
     "phone": this.state.phone})
 }).then( this.setState({
                     submitBtn: "submitBtn",
-                    zapros:"zaprosNone"
+                    zapros:"zaprosNone",
+                    firstName:'',
+                    lastName:'',
+                    email:'',
+                    phone:'',
+                    description:'',
+                    company:'',
+                    country:'',
+                    interested:'',
                 }))
             };
-    // BtnClick=()=>{
-    //     this.setState({
-    //         submitBtn: "btnNone"
-    //     });
-    //
-    //     this.PostFeth();
-    //
-    // };
+
     handleSubmit=(e)=>{
        e.preventDefault();
+       console.log(e);
 
 
-       if(!this.state.firstName ){
-           this.setState({
-               error: "errorBlock"
-           })
-       }
-        this.setState({
-            submitBtn: "btnNone",
-            zapros:"zaprosBlock"
-        });
-     setTimeout( this.PostFeth,2000)
+       // if(!this.state.firstName ){
+       //     this.setState({
+       //         error: "errorBlock"
+       //     })
+       // }
+        if(this.state.formValid) {
+            this.setState({
+                submitBtn: "btnNone",
+                zapros: "zaprosBlock"
+            });
+            setTimeout(this.PostFeth, 2000)
 
-
+        }
 
 
        console.log(this.state.firstName);
@@ -145,22 +164,23 @@ class App extends Component {
                   <Input lastName="width1" placeholder="First name" name='firstName' onChange={this.handleUserInput} value={this.state.firstName} error={this.state.error}/>
                   <Input lastName="width1" placeholder="Last name" name='lastName' onChange={this.handleUserInput} value={this.state.lastName} error={this.state.error}/>
               </div>
-              <Input lastName="width"  placeholder="E-mail" name='email' onChange={this.handleUserInput} value={this.state.email} error={this.state.error}/>
-              <Input lastName="width"  placeholder="Phone" name='phone' onChange={this.handleUserInput} value={this.state.phone} error={this.state.error}/>
+              <Input lastName="width"  placeholder="E-mail" name='email' onChange={this.handleUserInput} value={this.state.email} error={this.state.errorEmail}/>
+              <Input lastName="width"  placeholder="Phone" name='phone' onChange={this.handleUserInput} value={this.state.phone} error={this.state.errorPhone}/>
               <select onChange={(e)=>this.handleUserInput(e)} name='company' value={this.state.company}>
-                  <option>Company</option>
-                  <option>English</option>
-                  <option>Spanish</option>
+                  <option disabled selected>Company</option>
+                  <option>Omisoft</option>
+                  <option>Google</option>
               </select>
               <select onChange={(e)=>this.handleUserInput(e)} name='country' value={this.state.country}>
-                  <option>Country</option>
-                  <option>English</option>
-                  <option>Spanish</option>
+                  <option disabled selected>Country</option>
+                  <option>Ukraine</option>
+                  <option>USA</option>
+                  <option>England</option>
               </select>
               <select onChange={(e)=>this.handleUserInput(e)} name='interested' value={this.state.interested}>
-                  <option>I an interested in</option>
-                  <option>English</option>
-                  <option>Spanish</option>
+                  <option disabled selected>I an interested in</option>
+                  <option>Front-end</option>
+                  <option>Back-end</option>
               </select>
               <Input lastName="width"  placeholder="Description..." name='description' onChange={this.handleUserInput} value={this.state.description} error={this.state.error}/>
               <span className={this.state.zapros} ><img src={loader}/></span>
