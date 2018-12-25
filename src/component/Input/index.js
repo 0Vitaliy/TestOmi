@@ -3,7 +3,7 @@ import './style.css';
 
 class Input extends Component {
     render() {
-        const {lastName,firstName,placeholder,value,error,onChange,name}=this.props;
+        const {className,placeholder,value,error,onChange,name}=this.props;
 
         return (
             <div className="inputBlock" >
@@ -12,7 +12,7 @@ class Input extends Component {
                        name={name}
                        placeholder={placeholder}
                        onChange={(e)=>onChange(e)}
-                       className={lastName||firstName }
+                       className={className}
                        value={value}
 
                 />

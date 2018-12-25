@@ -1,4 +1,6 @@
-.width,.width1{
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,500i,700');
+
+.input,.inputW{
     padding-left: 22px;
     box-sizing: border-box;
     background: none;
@@ -11,18 +13,21 @@
     font-size: 16px;
     font-weight: 400;
 }
-.width1{
+.inputW{
     width: 234px;
 }
 .inputBlock{
-    margin-bottom: 21px;
+    margin-bottom: 20px;
 }
 .error{
     display: none;
+
 }
 .errorBlock{
+    margin-top:8px;
     color: #f2d422;
     font-size: 12px;
     font-weight: 500;
     display: block;
+    font-family: 'Raleway', sans-serif;
 }

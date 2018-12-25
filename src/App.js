@@ -15,7 +15,6 @@ class App extends Component {
        company:null,
        country:null,
        interested:null,
-       error:'error',
        errorPhone:'error',
        errorEmail:'error',
        errorfirstName:'error',
@@ -38,7 +37,7 @@ class App extends Component {
 
                 } else {
                     this.setState({errorfirstName: 'errorBlock'});
-                    e.target.style.border = " 1px solid #f2d422";
+                    e.target.style.border = " 2px solid #f2d422";
                 }
                 break;
             case 'lastName':
@@ -49,7 +48,7 @@ class App extends Component {
 
                 } else {
                     this.setState({errorlastName: 'errorBlock'});
-                    e.target.style.border = " 1px solid #f2d422";
+                    e.target.style.border = " 2px solid #f2d422";
                 }
                 break;
             case 'email':
@@ -60,7 +59,7 @@ class App extends Component {
 
                 } else {
                     this.setState({errorEmail: 'errorBlock'});
-                    e.target.style.border = " 1px solid #f2d422";
+                    e.target.style.border = " 2px solid #f2d422";
                 }
                 break;
           case 'phone':
@@ -72,7 +71,7 @@ class App extends Component {
 
             }else {
                 this.setState({errorPhone:'errorBlock'});
-                e.target.style.border=" 1px solid #f2d422";
+                e.target.style.border=" 2px solid #f2d422";
             }
             break;
             case 'description':
@@ -83,7 +82,7 @@ class App extends Component {
 
                 } else {
                     this.setState({errorDescription: 'errorBlock'});
-                    e.target.style.border = " 1px solid #f2d422";
+                    e.target.style.border = " 2px solid #f2d422";
                 }
                 break;
 
@@ -127,17 +126,7 @@ class App extends Component {
 
     handleSubmit=(e)=>{
         e.preventDefault();
-        // if(typeof(this.state.firstName)==="string" && this.state.errorfirstName==='error'
-        //     &&typeof(this.state.lastName)==="string" && this.state.errorlastName==='error'
-        //     &&typeof(this.state.email)==="string" && this.state.errorEmail==='error'
-        //     &&typeof(this.state.phone)==="string" && this.state.errorPhone==='error'
-        //     &&typeof(this.state.description)==="string" && this.state.errorDescription==='error'){
-        //
-        //     this.setState({formValid: true});
-        //
-        // }
-
-       if(typeof(this.state.firstName)==="string" && this.state.errorfirstName==='error'
+        if(typeof(this.state.firstName)==="string" && this.state.errorfirstName==='error'
            &&typeof(this.state.lastName)==="string" && this.state.errorlastName==='error'
            &&typeof(this.state.email)==="string" && this.state.errorEmail==='error'
            &&typeof(this.state.phone)==="string" && this.state.errorPhone==='error'
@@ -193,11 +182,39 @@ class App extends Component {
           </div>
           <form className="form" onSubmit={this.handleSubmit} >
               <div className="Name">
-                  <Input lastName="width1" placeholder="First name" name='firstName' onChange={this.handleUserInput} value={this.state.firstName} error={this.state.errorfirstName}/>
-                  <Input lastName="width1" placeholder="Last name" name='lastName' onChange={this.handleUserInput} value={this.state.lastName} error={this.state.errorlastName}/>
+                  <Input
+                      className="inputW"
+                      placeholder="First name"
+                      name='firstName'
+                      onChange={this.handleUserInput}
+                      value={this.state.firstName}
+                      error={this.state.errorfirstName}
+                  />
+                  <Input
+                      className="inputW"
+                      placeholder="Last name"
+                      name='lastName'
+                      onChange={this.handleUserInput}
+                      value={this.state.lastName}
+                      error={this.state.errorlastName}
+                  />
               </div>
-              <Input lastName="width"  placeholder="E-mail" name='email' onChange={this.handleUserInput} value={this.state.email} error={this.state.errorEmail}/>
-              <Input lastName="width"  placeholder="Phone" name='phone' onChange={this.handleUserInput} value={this.state.phone} error={this.state.errorPhone}/>
+              <Input
+                  className="input"
+                  placeholder="E-mail"
+                  name='email'
+                  onChange={this.handleUserInput}
+                  value={this.state.email}
+                  error={this.state.errorEmail}
+              />
+              <Input
+                  className="input"
+                  placeholder="Phone"
+                  name='phone'
+                  onChange={this.handleUserInput}
+                  value={this.state.phone}
+                  error={this.state.errorPhone}
+              />
               <select onChange={(e)=>this.handleUserInput(e)} name='company' value={this.state.company}>
                   <option disabled selected>Company</option>
                   <option>Omisoft</option>
@@ -214,7 +231,14 @@ class App extends Component {
                   <option>Front-end</option>
                   <option>Back-end</option>
               </select>
-              <Input lastName="width"  placeholder="Description..." name='description' onChange={this.handleUserInput} value={this.state.description} error={this.state.errorDescription}/>
+              <Input
+                  className="input"
+                  placeholder="Description..."
+                  name='description'
+                  onChange={this.handleUserInput}
+                  value={this.state.description}
+                  error={this.state.errorDescription}
+              />
               <span className={this.state.zapros} ><img src={loader}/></span>
 
               <button type="submit" className={this.state.submitBtn}  >
