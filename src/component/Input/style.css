@@ -24,8 +24,21 @@
 
 }
 .errorBlock{
-    margin-top:8px;
+    /*margin-top:8px;*/
     color: #f2d422;
+    position: absolute;
+    font-size: 12px;
+    font-weight: 500;
+    display: block;
+    font-family: 'Raleway', sans-serif;
+}
+.select{
+    position: relative;
+}
+.errorBlockS{
+    bottom: 8px;
+    color: #f2d422;
+    position: absolute;
     font-size: 12px;
     font-weight: 500;
     display: block;

@@ -3,7 +3,7 @@ import './style.css';
 
 class Input extends Component {
     render() {
-        const {className,placeholder,value,error,onChange,name}=this.props;
+        const {className,placeholder,value,error,onChange,name,max}=this.props;
 
         return (
             <div className="inputBlock" >
@@ -14,6 +14,7 @@ class Input extends Component {
                        onChange={(e)=>onChange(e)}
                        className={className}
                        value={value}
+                       maxLength={max}
 
                 />
                 <span className={error}>Wrong {placeholder}</span>

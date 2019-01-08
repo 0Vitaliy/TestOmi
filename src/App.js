@@ -16,6 +16,9 @@ class App extends Component {
        country:null,
        interested:null,
        errorPhone:'error',
+       errorSelectCompany:'error',
+       errorSelectCountry:'error',
+       errorSelectInterested:'error',
        errorEmail:'error',
        errorfirstName:'error',
        errorlastName:'error',
@@ -26,13 +29,14 @@ class App extends Component {
 
 
     handleUserInput = (e) => {
+
         const name = e.target.name;
         const value = e.target.value;
         switch (name) {
             case 'firstName':
-                var firstNameValid = value.match(/^[a-zA-Z][a-zA-Z0-9-_]{3,20}$/);
+                var firstNameValid = value.match(/^[a-zA-Z][a-zA-Z0-9-_]{1,20}$/);
                 if (firstNameValid) {
-                    this.setState({errorfirstName: 'error'});
+                    this.setState({[name]: value,errorfirstName: 'error'});
                     e.target.style.border = " 1px solid white";
 
                 } else {
@@ -43,7 +47,7 @@ class App extends Component {
             case 'lastName':
                 var lastNameValid = value.match(/^[a-zA-Z][a-zA-Z0-9-_]{3,20}$/);
                 if (lastNameValid) {
-                    this.setState({errorlastName: 'error'});
+                    this.setState({[name]: value,errorlastName: 'error'});
                     e.target.style.border = " 1px solid white";
 
                 } else {
@@ -54,7 +58,7 @@ class App extends Component {
             case 'email':
                 var emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
                 if (emailValid) {
-                    this.setState({errorEmail: 'error'});
+                    this.setState({[name]: value,errorEmail: 'error'});
                     e.target.style.border = " 1px solid white";
 
                 } else {
@@ -63,21 +67,37 @@ class App extends Component {
                 }
                 break;
           case 'phone':
+              console.log(value.match(/\D/g));
 
-            var phoneValid = value.match( /(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){12,14}(\s*)?/);
-            if( phoneValid){
-                this.setState({errorPhone:'error'});
-                e.target.style.border=" 1px solid white";
 
-            }else {
-                this.setState({errorPhone:'errorBlock'});
-                e.target.style.border=" 2px solid #f2d422";
-            }
+              if(value.match(/\D/g)){
+                  if(this.state.phone===null){
+                      this.setState({[name]:''});
+                  }else {
+                      this.setState({[name]: this.state.phone + ''});
+                  }
+              }else {
+                  this.setState({[name]: value});
+              }
+
+                 if(typeof(value)==="string") {
+                     var phoneValid = value.match(/(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){12,14}(\s*)?/);
+                     // console.log(phoneValid);
+                     if (phoneValid) {
+                         this.setState({errorPhone: 'error'});
+                         e.target.style.border = " 1px solid white";
+
+                     } else {
+                         this.setState({errorPhone: 'errorBlock'});
+                         e.target.style.border = " 2px solid #f2d422";
+                     }
+                 }
             break;
             case 'description':
                 var descriptionValid = value.match(/^[a-zA-Z][a-zA-Z0-9-_]{5,40}$/);
                 if (descriptionValid) {
-                    this.setState({errorDescription: 'error'});
+
+                    this.setState({[name]: value,errorDescription: 'error'});
                     e.target.style.border = " 1px solid white";
 
                 } else {
@@ -85,10 +105,46 @@ class App extends Component {
                     e.target.style.border = " 2px solid #f2d422";
                 }
                 break;
+            case 'company':
+
+                if (value) {
+
+                    this.setState({[name]: value,errorSelectCompany: 'error'});
+                    e.target.style.border = " 1px solid white";
+
+                } else {
+                    this.setState({errorSelectCompany: 'errorBlockS'});
+                    e.target.style.border = " 2px solid #f2d422";
+                }
+                break;
+            case 'country':
+
+                if (value) {
+
+                    this.setState({[name]: value,errorSelectCountry: 'error'});
+                    e.target.style.border = " 1px solid white";
+
+                } else {
+                    this.setState({errorSelectCountry: 'errorBlockS'});
+                    e.target.style.border = " 2px solid #f2d422";
+                }
+                break;
+            case 'interested':
+
+                if (value) {
+
+                    this.setState({[name]: value,errorSelectInterested: 'error'});
+                    e.target.style.border = " 1px solid white";
+
+                } else {
+                    this.setState({errorSelectInterested: 'errorBlockS'});
+                    e.target.style.border = " 2px solid #f2d422";
+                }
+                break;
 
         }
 
-        this.setState({[name]: value});
+
 
     }
 
@@ -115,6 +171,7 @@ class App extends Component {
                     firstName:'',
                     lastName:'',
                     email:'',
+
                     phone:'',
                     description:'',
                     company:'',
@@ -143,6 +200,21 @@ class App extends Component {
                    errorfirstName: 'errorBlock',
                });
            }
+            if (this.state.errorSelectCompany==='error' && !this.state.company) {
+                this.setState({
+                    errorSelectCompany: 'errorBlockS',
+                });
+            }
+            if (this.state.errorSelectCountry==='error' && !this.state.country) {
+                this.setState({
+                    errorSelectCountry: 'errorBlockS',
+                });
+            }
+            if (this.state.errorSelectInterested==='error' && !this.state.interested) {
+                this.setState({
+                    errorSelectInterested: 'errorBlockS',
+                });
+            }
            if (this.state.errorlastName==='error' && !this.state.lastName) {
                this.setState({
                    errorlastName: 'errorBlock',
@@ -214,23 +286,33 @@ class App extends Component {
                   onChange={this.handleUserInput}
                   value={this.state.phone}
                   error={this.state.errorPhone}
+                  max='13'
               />
-              <select onChange={(e)=>this.handleUserInput(e)} name='company' value={this.state.company}>
-                  <option disabled selected>Company</option>
-                  <option>Omisoft</option>
-                  <option>Google</option>
-              </select>
-              <select onChange={(e)=>this.handleUserInput(e)} name='country' value={this.state.country}>
-                  <option disabled selected>Country</option>
-                  <option>Ukraine</option>
-                  <option>USA</option>
-                  <option>England</option>
-              </select>
-              <select onChange={(e)=>this.handleUserInput(e)} name='interested' value={this.state.interested}>
-                  <option disabled selected>I an interested in</option>
-                  <option>Front-end</option>
-                  <option>Back-end</option>
-              </select>
+              <div className="select">
+                  <select onChange={(e)=>this.handleUserInput(e)} name='company' value={this.state.company}>
+                      <option disabled selected>Company</option>
+                      <option>Omisoft</option>
+                      <option>Google</option>
+                  </select>
+                  <span className={this.state.errorSelectCompany}>Error</span>
+              </div>
+              <div className="select">
+                  <select onChange={(e)=>this.handleUserInput(e)} name='country' value={this.state.country}>
+                      <option disabled selected>Country</option>
+                      <option>Ukraine</option>
+                      <option>USA</option>
+                      <option>England</option>
+                  </select>
+                  <span className={this.state.errorSelectCountry}>Error</span>
+              </div>
+              <div className="select">
+                  <select onChange={(e)=>this.handleUserInput(e)} name='interested' value={this.state.interested}>
+                      <option disabled selected>I an interested in</option>
+                      <option>Front-end</option>
+                      <option>Back-end</option>
+                  </select>
+                  <span className={this.state.errorSelectInterested}>Error</span>
+              </div>
               <Input
                   className="input"
                   placeholder="Description..."

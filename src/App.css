@@ -93,6 +93,10 @@ label{
     margin-left: 28px;
   width: 487px;
 }
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 white;
+}
 select>option{
     background:#0078a0;
     width: 487px;
