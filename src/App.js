@@ -160,7 +160,7 @@ class App extends Component {
     "company": this.state.company,
     "country": this.state.country,
     "email": this.state.email,
-    // "files_id": [1],
+    "files_id": [1],
     "first_name": this.state.firstName,
     "interest":this.state.interested,
     "last_name": this.state.lastName,
@@ -187,7 +187,8 @@ class App extends Component {
            &&typeof(this.state.lastName)==="string" && this.state.errorlastName==='error'
            &&typeof(this.state.email)==="string" && this.state.errorEmail==='error'
            &&typeof(this.state.phone)==="string" && this.state.errorPhone==='error'
-           &&typeof(this.state.description)==="string" && this.state.errorDescription==='error') {
+           &&typeof(this.state.description)==="string" && this.state.errorDescription==='error' && this.state.errorSelectInterested==='error'
+            && this.state.errorSelectCountry==='error' && this.state.errorSelectCompany==='error') {
             this.setState({
                 submitBtn: "btnNone",
                 zapros: "zaprosBlock"
